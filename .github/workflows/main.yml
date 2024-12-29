@@ -36,8 +36,10 @@ jobs:
       - name: Copy files
         run: |
           mkdir -p _site
-          cp src/main.py _site/
-          cp .github/pages/index.html _site/
+          cp -r src _site/
+          cp index.html _site/
+          echo "Contents of _site directory:"
+          ls -la _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
