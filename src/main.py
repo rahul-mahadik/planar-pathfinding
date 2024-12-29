@@ -41,8 +41,18 @@ GRID_DRAW_WIDTH = WIDTH - LEGEND_WIDTH
 class DelaunayDemo:
     def __init__(self):
         pygame.init()
-        pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)  # PyScript modification
-        self.screen = pygame.display.get_surface()
+    
+        # Check if running in Streamlit
+        self.is_streamlit = 'streamlit' in sys.modules
+        
+        if not self.is_streamlit:
+            # Normal Pygame initialization for PyScript
+            pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
+            self.screen = pygame.display.get_surface()
+        else:
+            # Streamlit initialization
+            self.screen = pygame.Surface((WIDTH, HEIGHT))
+        
         pygame.display.set_caption("Delaunay Triangulation Demo")
         
         self.polygons = []          # List of polygons (first is boundary)
