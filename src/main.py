@@ -836,4 +836,9 @@ class DelaunayDemo:
 
 if __name__ == "__main__":
     demo = DelaunayDemo()
-    asyncio.create_task(demo.run())
+    
+    # Set up and run the asyncio event loop
+    async def main():
+        await demo.run()
+    
+    asyncio.run(main())
