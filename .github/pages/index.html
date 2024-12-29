@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Planar Pathfinding</title>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+        }
+        #error {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Loading... Please wait.</div>
+    <div id="error">
+        An error occurred while loading the application.<br>
+        Please check the browser console for details.
+    </div>
 
+    <py-config>
+        packages = [
+            "pygame",
+            "numpy",
+            "scipy",
+            "shapely"
+        ]
+        [[fetch]]
+        files = ["./main.py"]
+    </py-config>
+    
+    <py-script>
+        import sys
+        from pyodide.ffi import to_js
+        from js import document
+        
+        try:
+            import main
+            document.getElementById("loading").style.display = "none"
+        except Exception as e:
+            document.getElementById("loading").style.display = "none"
+            document.getElementById("error").style.display = "block"
+            console.error(str(e))
+    </py-script>
+</body>
+</html>
